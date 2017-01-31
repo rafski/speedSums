@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -53,9 +54,12 @@ public class GameActivity extends AppCompatActivity {
                 randomsList.add(generatedRandom);
             }
         }
+        Collections.shuffle(randomsList);
     }
 
     public void assignValueToButton() {
+
+
 
         button0.setText(randomsList.get(0).toString());
         button1.setText(randomsList.get(1).toString());
