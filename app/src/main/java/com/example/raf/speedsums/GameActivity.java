@@ -39,8 +39,10 @@ public class GameActivity extends AppCompatActivity {
 
     public void randomGenerate() {
 
-        randomsList = new ArrayList<Integer>();
+        randomsList = new ArrayList<Integer>(Collections.nCopies(3, 23));
         Random r = new Random();
+
+        Log.i("arrayList" , randomsList.toString());
 
         int a = r.nextInt(12);
         int b = r.nextInt(12);
@@ -48,26 +50,24 @@ public class GameActivity extends AppCompatActivity {
         randomsList.add(randomSum);
         sumTextView.setText(a + "+" + b);
 
-        for (int i = 0; i <= 2; i++) {
+        for (int i = 0; i <= 3; i++) {
             generatedRandom = r.nextInt(30);
-            if(generatedRandom != randomSum){
-                randomsList.add(generatedRandom);
+            if((generatedRandom != randomSum)||(generatedRandom != 23)){
+                randomsList.set(i++, generatedRandom);
             }
         }
+        randomsList.set(1, r.nextInt(30));
         Collections.shuffle(randomsList);
+
     }
 
     public void assignValueToButton() {
-
-
 
         button0.setText(randomsList.get(0).toString());
         button1.setText(randomsList.get(1).toString());
         button2.setText(randomsList.get(2).toString());
         button3.setText(randomsList.get(3).toString());
 
-
-        randomSumPosition = randomsList.indexOf(randomSum);
 
         Log.i("arrayList" , randomsList.toString());
 
@@ -76,26 +76,23 @@ public class GameActivity extends AppCompatActivity {
 
     public void selectAnswer(View view) {
 
-
-
         Log.i("rs index", Integer.toString(randomSumPosition));
         Log.i("Button pressed", (String)view.getTag());
         Log.i("rs value", Integer.toString(randomSum));
 
+        randomSumPosition = randomsList.indexOf(randomSum);
+
         if (view.getTag().toString().equals(Integer.toString(randomSumPosition))){
             rightWrongText.setText("Correct!");
             score++;
-            Log.i("a", "correct");
         } else {
             rightWrongText.setText("Wrong!");
-            Log.i("a", "wrong");
         }
         totalQuestions++;
         scoreTextView.setText(Integer.toString(score) + "/" + Integer.toString(totalQuestions));
 
         randomGenerate();
         assignValueToButton();
-
 
     }
 
