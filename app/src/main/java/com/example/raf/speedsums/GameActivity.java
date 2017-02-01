@@ -39,24 +39,26 @@ public class GameActivity extends AppCompatActivity {
 
     public void randomGenerate() {
 
-        randomsList = new ArrayList<Integer>(Collections.nCopies(3, 23));
+        randomsList = new ArrayList<Integer>();
         Random r = new Random();
-
-        Log.i("arrayList" , randomsList.toString());
 
         int a = r.nextInt(12);
         int b = r.nextInt(12);
         randomSum = a+b;
         randomsList.add(randomSum);
         sumTextView.setText(a + "+" + b);
+        Log.i("generated dum", Integer.toString(randomSum));
 
-        for (int i = 0; i <= 3; i++) {
+        for (int i = 0; i <=4 ; i++) {
             generatedRandom = r.nextInt(30);
-            if((generatedRandom != randomSum)||(generatedRandom != 23)){
-                randomsList.set(i++, generatedRandom);
+            if((generatedRandom != randomSum)){
+                randomsList.add(generatedRandom);
             }
+            if(randomsList.size() > 4){
+                randomsList.remove(4);
+            }
+            Log.i("arrayList" , randomsList.toString());
         }
-        randomsList.set(1, r.nextInt(30));
         Collections.shuffle(randomsList);
 
     }
@@ -69,7 +71,7 @@ public class GameActivity extends AppCompatActivity {
         button3.setText(randomsList.get(3).toString());
 
 
-        Log.i("arrayList" , randomsList.toString());
+        Log.i("arrayList AFTER SHUFFLE" , randomsList.toString());
 
     }
 
@@ -162,8 +164,6 @@ public class GameActivity extends AppCompatActivity {
 
             }
         }.start();
-
-
 
     }
 }
